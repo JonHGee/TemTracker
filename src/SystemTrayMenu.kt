@@ -33,13 +33,6 @@ class SystemTrayMenu() {
         val jcb4 = MenuItem("Black")
 
 
-        /*val grp = CheckboxMenuItemGroup()
-        val jcb1 = CheckboxMenuItem("Yellow", false)
-        val jcb2 = CheckboxMenuItem("Teal", true)
-        val jcb3 = CheckboxMenuItem("Red", false)
-        grp.add(jcb1)
-        grp.add(jcb2)
-        grp.add(jcb3)*/
         val displayMenu = Menu("Color")
 
 
@@ -77,83 +70,6 @@ class SystemTrayMenu() {
         }
         if (!File("Control1.jpg").exists() || !File("Control2.jpg").exists() ) {
             ConfigureWindow()
-        }
-    }
-}
-
-class CheckboxMenuItemGroup {
-    private val group = Vector<CheckboxMenuItem>()
-
-    fun add(menuItem: CheckboxMenuItem) {
-        group.addElement(menuItem)
-        menuItem.addItemListener(itemListener)
-        if (menuItem.state) selectedIndex = group.indexOf(menuItem)
-    }
-
-    private var selectedIndex = -1
-
-    fun setSelectedIndex(index: Int) {
-        selectedIndex = index
-        for (i in group.indices) {
-            group.elementAt(i).state = i == index
-        }
-        val source = group.elementAt(index)
-        val id = ActionEvent.ACTION_PERFORMED
-        val command = source.actionCommand
-        fireActionPerformed(ActionEvent(source, id, command))
-    }
-
-    private val itemListener = ItemListener { ev ->
-        val source = ev.source as CheckboxMenuItem
-        val id = ev.id
-        val command = source.actionCommand
-        fireActionPerformed(ActionEvent(source, id, command))
-    }
-
-    private val actionListener = ActionListener { ev ->
-        val index = group.indexOf(ev.source)
-        for (i in group.indices) {
-            group.elementAt(i).state = i == index
-        }
-    }
-
-    val selected: CheckboxMenuItem
-        get() = group.elementAt(selectedIndex)
-
-    private val actionSupport: ActionSupport = ActionSupport()
-
-    fun addActionListener(l: ActionListener) {
-        actionSupport.addActionListener(l)
-    }
-
-    fun removeActionListener(l: ActionListener) {
-        actionSupport.removeActionListener(l)
-    }
-
-    protected fun fireActionPerformed(ev: ActionEvent) {
-        actionSupport.fireActionPerformed(ev)
-    }
-
-    init {
-        addActionListener(actionListener)
-    }
-
-    class ActionSupport : Serializable {
-        private val listeners = Vector<ActionListener>()
-
-        fun addActionListener(l: ActionListener) {
-            listeners.addElement(l)
-        }
-
-        fun removeActionListener(l: ActionListener?) {
-            listeners.removeElement(l)
-        }
-
-        @Synchronized
-        fun fireActionPerformed(ev: ActionEvent) {
-            for (i in listeners.indices) {
-                listeners.elementAt(i).actionPerformed(ev)
-            }
         }
     }
 }

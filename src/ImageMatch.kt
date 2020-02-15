@@ -60,7 +60,7 @@ class ImageMatch() {
                     val sizeB = dbB.size
                     var count = 0
                     // compare data-buffer objects //
-                    if (sizeA == sizeB) {
+
                         for (i in 0 until sizeA) {
                             if (dbA.getElem(i) == dbB.getElem(i)) {
                                 count = count + 1
@@ -68,10 +68,7 @@ class ImageMatch() {
                         }
                         percentage = count * 100 / sizeA.toFloat()
                         //println("""Image $i: ${percentage}match""")
-                    } else {
-                        //println("$sizeA $sizeB")
-                        //println("size mismatch")
-                    }
+
                 }
             }
         } catch (e: Exception) {

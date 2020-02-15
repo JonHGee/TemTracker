@@ -1,9 +1,10 @@
-import java.awt.Color
-import java.awt.Graphics2D
+import java.awt.*
 import java.awt.image.BufferedImage
 import java.io.ByteArrayInputStream
 import java.io.File
 import javax.imageio.ImageIO
+import javax.swing.JFrame
+import javax.swing.JPanel
 
 
 fun main(args: Array<String>) {
@@ -13,9 +14,20 @@ fun main(args: Array<String>) {
         File("count.txt").writeText("0")
     }
     if (!File("Control3.jpg").exists()) {
-        val bi = BufferedImage(360, 60, BufferedImage.TYPE_INT_RGB)
-
-        ImageIO.write(bi, "jpg", File("Control3.jpg"))
+        val temp = JFrame()
+        temp.preferredSize = (Dimension(400,100))
+        temp.contentPane.background = Color.BLACK
+        temp.isUndecorated = true
+        temp.pack()
+        temp.isVisible = true
+        temp.isAlwaysOnTop = true
+        Thread.sleep(200)
+        val robot = Robot()
+        val captureRect = Rectangle(1,1,400,100)
+        val screenFullImage = robot.createScreenCapture(captureRect)
+        ImageIO.write(screenFullImage, "jpg", File("Control3.jpg"))
+        Thread.sleep(200)
+        temp.dispose()
     }
     if (!File("temcard.jpg").exists()) {
         val tem = byteArrayOf(
