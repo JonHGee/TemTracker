@@ -1,11 +1,8 @@
 import java.awt.*
-import java.awt.image.BufferedImage
 import java.io.ByteArrayInputStream
 import java.io.File
 import javax.imageio.ImageIO
 import javax.swing.JFrame
-import javax.swing.JPanel
-
 
 fun main(args: Array<String>) {
     File("logs.txt").writeText("startup")
@@ -767,6 +764,8 @@ fun main(args: Array<String>) {
         val bImage2 = ImageIO.read(bis)
         ImageIO.write(bImage2, "jpg", File("temcard.jpg"))
     }
+    //val c = ConfigWindow()
+    //val l = LayerTest()
     val sys = SystemTrayMenu()
     //CounterWindow()
 }

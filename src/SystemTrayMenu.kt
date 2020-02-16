@@ -1,16 +1,13 @@
 import java.awt.*
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
-import java.awt.event.ItemListener
-import java.awt.image.BufferedImage
 import java.io.*
-import java.util.*
 import javax.imageio.ImageIO
 import kotlin.system.exitProcess
 
 
 class SystemTrayMenu() {
-    var counter = CounterWindow()
+    val capture = Capture()
+    var counter = CounterWindow(capture)
+
     init {
         if (!SystemTray.isSupported()) {
             println("SystemTray is not supported")
@@ -22,7 +19,6 @@ class SystemTrayMenu() {
         // Create a pop-up menu components
 
         val helpItem = MenuItem("Help")
-
         val resetItem = MenuItem("Reset")
         val configItem = MenuItem("Configure")
         val exitItem = MenuItem("Exit")
@@ -36,7 +32,7 @@ class SystemTrayMenu() {
         val displayMenu = Menu("Color")
 
 
-        configItem.addActionListener { ConfigureWindow() }
+        configItem.addActionListener { ConfigWindow(capture) }
         exitItem.addActionListener { exitProcess(0) }
         resetItem.addActionListener{ counter.reset() }
         jcb1.addActionListener {counter.colorchange(Color.YELLOW)}
@@ -68,8 +64,9 @@ class SystemTrayMenu() {
             } catch (e: IOException) {
             }
         }
-        if (!File("Control1.jpg").exists() || !File("Control2.jpg").exists() ) {
-            ConfigureWindow()
+        if (!File("Control1.jpg").exists() || !File("Control2.jpg").exists() ||
+                File("config.txt").exists() && File("count.txt").readText(Charsets.UTF_8) != "Full Screen") {
+            ConfigWindow(capture)
         }
     }
 }
